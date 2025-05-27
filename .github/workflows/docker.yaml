@@ -78,6 +78,3 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:${{ env.VERSION }}
             ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:latest
 
-name: Build and Push Docker Images to GHCR
-
-
