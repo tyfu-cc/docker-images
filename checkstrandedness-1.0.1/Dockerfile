@@ -34,7 +34,7 @@ RUN git clone https://github.com/signalbash/how_are_we_stranded_here.git
 RUN pip install --no-cache-dir ./how_are_we_stranded_here
 
 
-
+# ---- Second stage ----
 FROM python:3.10-slim
 
 # Extra python env
