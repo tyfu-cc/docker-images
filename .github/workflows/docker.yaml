@@ -1,0 +1,83 @@
+name: Build and Push Tools to GHCR (amd64 only)
+
+on:
+  push:
+    paths:
+      - "**/Dockerfile"
+      - ""**/VERSION"
+    branches:
+      - main
+
+jobs:
+  detect-tools:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v39
+
+      - name: Build matrix from changed Dockerfiles
+        id: set-matrix
+        run: |
+          echo "Generating matrix..."
+          MATRIX="{\"include\":["
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == */Dockerfile || "$file" == */VERSION ]]; then
+              TOOL_DIR=$(dirname "$file")
+              TOOL_NAME=$(basename "$TOOL_DIR")
+              if [[ ! "$MATRIX" == *"$TOOL_NAME"* ]]; then
+                MATRIX="${MATRIX}{\"tool\":\"$TOOL_NAME\",\"path\":\"$TOOL_DIR\"},"
+              fi
+            fi
+          done
+          MATRIX="${MATRIX%,}]}"
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+
+  build-push:
+    needs: detect-tools
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    strategy:
+      matrix: ${{ fromJSON(needs.detect-tools.outputs.matrix) }}
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read tool version
+        id: version
+        run: |
+          VERSION=$(cat ${{ matrix.path }}/VERSION)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image (amd64 only)
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.path }}
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:${{ env.VERSION }}
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:latest
+
+name: Build and Push Docker Images to GHCR
+
+
