@@ -49,6 +49,9 @@ WORKDIR /app
 COPY --from=builder /venv /venv
 COPY --from=builder /build/kallisto_linux-v0.44.0/kallisto /usr/local/bin/kallisto
 
+# The WashU RIS seems to overwrites the PATH variable inside the Docker container
+RUN find /venv/bin -type f -executable -exec ln -s {} /usr/local/bin/ \;
+
 # Compliant with LSF — no ENTRYPOINT
 CMD ["/bin/sh"]
 
