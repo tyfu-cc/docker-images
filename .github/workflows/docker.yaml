@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "**/Dockerfile"
-      - ""**/VERSION"
+      - "**/VERSION"
     branches:
       - main
 
