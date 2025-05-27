@@ -49,6 +49,6 @@ WORKDIR /app
 COPY --from=builder /venv /venv
 COPY --from=builder /build/kallisto_linux-v0.44.0/kallisto /usr/local/bin/kallisto
 
-# Default entrypoint
-ENTRYPOINT ["/bin/bash"]
+# Compliant with LSF — no ENTRYPOINT
+CMD ["/bin/sh"]
 
