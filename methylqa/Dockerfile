@@ -28,6 +28,10 @@ FROM debian:bookworm-slim
 
 ENV PATH="/usr/local/bin:$PATH"
  
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends procps && \
+    rm -rf /var/lib/apt/lists/*
+
 # # Copy in python packages and kallisto
 COPY --from=build /build/methylQA/methylQA /usr/local/bin
 # 
