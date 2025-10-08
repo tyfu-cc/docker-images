@@ -1,5 +1,5 @@
 
-ARG BASE_IMAGE=quay.io/jupyter/pytorch-notebook:cuda12-python-3.11
+ARG BASE_IMAGE=quay.io/jupyter/pytorch-notebook:cuda12-python-3.12.11
 FROM $BASE_IMAGE
 
 USER root
