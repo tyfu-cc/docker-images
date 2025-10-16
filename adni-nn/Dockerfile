@@ -10,6 +10,7 @@ RUN mamba install -y -c conda-forge \
     scikit-survival \
     nibabel \
     tensorboard \
+    jupyter-server-proxy \
     pip && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
