@@ -6,12 +6,12 @@ USER root
 
 # Add additional libraries
 RUN mamba install -y -c conda-forge \
+    jupyter-server-proxy \
     tqdm \
     scikit-survival \
     torchsurv \
     nibabel \
     tensorboard \
-    jupyter-server-proxy \
     pip && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
