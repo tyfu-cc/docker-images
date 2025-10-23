@@ -8,6 +8,7 @@ USER root
 RUN mamba install -y -c conda-forge \
     tqdm \
     scikit-survival \
+    torchsurv \
     nibabel \
     tensorboard \
     jupyter-server-proxy \
