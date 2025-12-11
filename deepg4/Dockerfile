@@ -29,17 +29,27 @@ RUN mamba install -y -c conda-forge \
     protobuf \
     tensorboard \
     pip \
-    r-ragg && \
+    r-ragg \
+    r-devtools \
+    r-biocmanager \
+    bioconductor-biostrings \
+    bioconductor-rtracklayer \
+    bioconductor-bsgenome.hsapiens.ucsc.hg19 && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
 USER ${NB_UID}
 
-RUN R -e "install.packages(c('devtools', 'BiocManager'), repos='https://cloud.r-project.org'); \
-          BiocManager::install(version='3.18'); \
-          BiocManager::install(c('Biostrings', 'rtracklayer')); \
-          devtools::install_github('morphos30/DeepG4')"
+# Make R use binary packages and not compile anything
+ENV R_COMPILE_AND_INSTALL_PACKAGES=never
+RUN echo 'options(pkgType="binary")' >> /etc/R/Rprofile.site
+
+# Ensure R finds conda-installed packages
+ENV R_LIBS_SITE=/opt/conda/lib/R/library
+ENV R_LIBS_USER=/opt/conda/lib/R/library
+
+RUN R -e "devtools::install_github('morphos30/DeepG4')"
 
 CMD ["bash"]
 
