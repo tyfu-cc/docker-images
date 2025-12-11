@@ -34,7 +34,7 @@ RUN mamba install -y -c conda-forge \
 
 USER ${NB_UID}
 
-RUN R -e "install.packages('devtools', 'BiocManager', repos='https://cloud.r-project.org'); \
+RUN R -e "install.packages(c('devtools', 'BiocManager'), repos='https://cloud.r-project.org'); \
           BiocManager::install(version='3.18') \
           BiocManager::install(c('Biostrings', 'rtracklayer')); \
           devtools::install_github('morphos30/DeepG4')"
