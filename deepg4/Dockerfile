@@ -23,17 +23,24 @@ RUN apt-get update && \
     libbz2-dev \
     liblzma-dev \
     libpcre2-dev \
-    python3 \
-    python3-pip \
-    python3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python libraries
-RUN pip3 install --break-system-packages --no-cache-dir \
-    protobuf \
-    h5py \
-    tensorflow
+# Install micromamba
+ADD https://micro.mamba.pm/api/micromamba/linux-64/latest /usr/local/bin/micromamba
+RUN chmod +x /usr/local/bin/micromamba
+
+# Create conda env for DeepG4
+RUN micromamba create -y -p /opt/conda/envs/deepg4 \
+    python=3.7 \
+    tensorflow=2.1.0 \
+    h5py=2.10.0 \
+    protobuf=3.20 \
+    pip
+
+# Make environment available system-wide
+ENV PATH=/opt/conda/envs/deepg4/bin:$PATH
+ENV RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python
 
 # Install R packages
 RUN R -q -e "install.packages('BiocManager', repos='https://cloud.r-project.org'); \
