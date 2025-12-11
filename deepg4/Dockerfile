@@ -1,5 +1,5 @@
 
-FROM quay.io/jupyter/datascience-notebook:r-4.4.3 
+FROM quay.io/jupyter/datascience-notebook:python-3.11 
 
 USER root
 
