@@ -43,13 +43,15 @@ RUN micromamba create -y -p /opt/conda/envs/deepg4 \
 ENV PATH=/opt/conda/envs/deepg4/bin:$PATH
 
 # Install R packages
-RUN R -q -e "install.packages('BiocManager', repos='https://cloud.r-project.org'); \
+RUN R -q -e "install.packages(c('BiocManager', 'yardstick'), repos='https://cloud.r-project.org'); \
              BiocManager::install(c('Biostrings','rtracklayer','BSgenome.Hsapiens.UCSC.hg19')); \
              devtools::install_github('morphos30/DeepG4')"
 
 # Ensure reticulate uses micromamba and recognize python
 RUN echo 'RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python' >> /etc/R/Renviron.site && \
-    echo 'RETICULATE_CONDA=/usr/local/bin/micromamba' >> /etc/R/Renviron.site
+    echo 'RETICULATE_CONDA=/usr/local/bin/micromamba' >> /etc/R/Renviron.site && \
+    echo 'env RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python' >> /etc/rstudio/rsession.conf && \
+    echo 'env RETICULATE_CONDA=/usr/local/bin/micromamba' >> /etc/rstudio/rsession.conf
 
 CMD ["bash"]
 
