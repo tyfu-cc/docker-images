@@ -3,7 +3,6 @@ FROM quay.io/jupyter/datascience-notebook:python-3.11
 
 USER root
 
-# Add additional libraries
 RUN mamba install -y -c conda-forge \
     jupyter-server-proxy \
     tqdm \
