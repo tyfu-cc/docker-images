@@ -31,10 +31,12 @@ RUN curl -L https://micro.mamba.pm/api/micromamba/linux-64/latest | \
 # Create conda env for DeepG4
 RUN micromamba create -y -p /opt/conda/envs/deepg4 \
     python=3.7 \
-    tensorflow=2.1.0 \
-    h5py=2.10.0 \
-    protobuf=3.20 \
-    pip
+    pip && \
+    /opt/conda/envs/deepg4/bin/pip install --no-cache-dir \
+    tensorflow==2.1.0 \
+    h5py==2.10.0 \
+    protobuf==3.20.* \
+    numpy==1.19.*
 
 # Make environment available system-wide
 ENV PATH=/opt/conda/envs/deepg4/bin:$PATH
