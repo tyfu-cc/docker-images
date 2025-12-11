@@ -30,7 +30,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python libraries
-RUN pip3 install --no-cache-dir \
+RUN pip3 install --break-system-packages --no-cache-dir \
     protobuf \
     h5py \
     tensorflow
