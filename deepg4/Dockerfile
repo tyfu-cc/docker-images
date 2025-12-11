@@ -1,55 +1,44 @@
 
-FROM quay.io/jupyter/datascience-notebook:python-3.11 
+FROM rocker/tidyverse:4.4.3
 
 USER root
 
-RUN apt-get update && apt-get install -y \
-    git \
+# Install system dependencies for Python and HDF5
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential \
     libxml2-dev \
-    libcurl4-openssl-dev \
     libssl-dev \
+    libpng-dev \
+    libssh2-1 \
+    libcairo2-dev \
+    libcurl4-openssl-dev \
+    libcurl4-doc \
+    libidn11-dev \
+    libldap2-dev \
+    libssh2-1-dev \
+    libhdf5-dev \
+    libhdf5-dev \
+    libxml2-dev \
     libz-dev \
     libbz2-dev \
     liblzma-dev \
     libpcre2-dev \
-    libfreetype6-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libtiff-dev \
-    libwebp-dev \
-    pkg-config \
+    python3 \
+    python3-pip \
+    python3-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mamba install -y -c conda-forge \
-    jupyter-server-proxy \
-    tqdm \
-    tensorflow \
-    h5py \
+# Install Python libraries
+RUN pip3 install --no-cache-dir \
     protobuf \
-    tensorboard \
-    pip \
-    r-ragg \
-    r-devtools \
-    r-biocmanager \
-    bioconductor-biostrings \
-    bioconductor-rtracklayer \
-    bioconductor-bsgenome.hsapiens.ucsc.hg19 && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+    h5py \
+    tensorflow
 
-USER ${NB_UID}
-
-# Make R use binary packages and not compile anything
-ENV R_COMPILE_AND_INSTALL_PACKAGES=never
-RUN echo 'options(pkgType="binary")' >> /etc/R/Rprofile.site
-
-# Ensure R finds conda-installed packages
-ENV R_LIBS_SITE=/opt/conda/lib/R/library
-ENV R_LIBS_USER=/opt/conda/lib/R/library
-
-RUN R -e "devtools::install_github('morphos30/DeepG4')"
+# Install R packages
+RUN R -q -e "install.packages('BiocManager', repos='https://cloud.r-project.org'); \
+             BiocManager::install(c('Biostrings','rtracklayer','BSgenome.Hsapiens.UCSC.hg19')); \
+             devtools::install_github('morphos30/DeepG4')"
 
 CMD ["bash"]
 
