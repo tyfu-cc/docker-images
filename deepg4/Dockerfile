@@ -1,5 +1,5 @@
 
-FROM quay.io/jupyter/datascience-notebook:python-3.11
+FROM quay.io/jupyter/datascience-notebook:r-4.4.3 
 
 USER root
 
@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev \
     liblzma-dev \
     libpcre2-dev \
+    libtiff-dev \
     libfreetype6-dev \
     libfontconfig1-dev \
     libharfbuzz-dev \
