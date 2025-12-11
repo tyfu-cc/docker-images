@@ -12,11 +12,12 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev \
     liblzma-dev \
     libpcre2-dev \
-    libtiff-dev \
     libfreetype6-dev \
-    libfontconfig1-dev \
-    libharfbuzz-dev \
-    libfribidi-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libtiff-dev \
+    libwebp-dev \
+    pkg-config \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -27,7 +28,8 @@ RUN mamba install -y -c conda-forge \
     h5py \
     protobuf \
     tensorboard \
-    pip && \
+    pip \
+    r-ragg && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
@@ -35,7 +37,7 @@ RUN mamba install -y -c conda-forge \
 USER ${NB_UID}
 
 RUN R -e "install.packages(c('devtools', 'BiocManager'), repos='https://cloud.r-project.org'); \
-          BiocManager::install(version='3.18') \
+          BiocManager::install(version='3.18'); \
           BiocManager::install(c('Biostrings', 'rtracklayer')); \
           devtools::install_github('morphos30/DeepG4')"
 
