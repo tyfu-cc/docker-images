@@ -50,8 +50,8 @@ RUN R -q -e "install.packages(c('BiocManager', 'yardstick'), repos='https://clou
 # Ensure reticulate uses micromamba and recognize python
 RUN echo 'RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python' >> /etc/R/Renviron.site && \
     echo 'RETICULATE_CONDA=/usr/local/bin/micromamba' >> /etc/R/Renviron.site && \
-    echo 'env RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python' >> /etc/rstudio/rsession.conf && \
-    echo 'env RETICULATE_CONDA=/usr/local/bin/micromamba' >> /etc/rstudio/rsession.conf
+    echo 'Sys.setenv(RETICULATE_PYTHON="/opt/conda/envs/deepg4/bin/python")' >> /etc/R/Rprofile.site && \
+    echo 'Sys.setenv(RETICULATE_CONDA="/usr/local/bin/micromamba")' >> /etc/R/Rprofile.site
 
 CMD ["bash"]
 
