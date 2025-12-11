@@ -8,21 +8,19 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential \
     libxml2-dev \
     libssl-dev \
-    libpng-dev \
     libssh2-1 \
-    libcairo2-dev \
     libcurl4-openssl-dev \
-    libcurl4-doc \
     libidn11-dev \
     libldap2-dev \
     libssh2-1-dev \
     libhdf5-dev \
-    libhdf5-dev \
-    libxml2-dev \
     libz-dev \
     libbz2-dev \
     liblzma-dev \
     libpcre2-dev \
+    curl \
+    bzip2 \
+    ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
