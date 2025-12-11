@@ -32,6 +32,7 @@ RUN curl -L https://micro.mamba.pm/api/micromamba/linux-64/latest | \
 RUN micromamba create -y -p /opt/conda/envs/deepg4 \
     python=3.7 \
     pip && \
+    micromamba clean -a -y && \
     /opt/conda/envs/deepg4/bin/pip install --no-cache-dir \
     tensorflow==2.1.0 \
     h5py==2.10.0 \
@@ -40,12 +41,15 @@ RUN micromamba create -y -p /opt/conda/envs/deepg4 \
 
 # Make environment available system-wide
 ENV PATH=/opt/conda/envs/deepg4/bin:$PATH
-ENV RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python
 
 # Install R packages
 RUN R -q -e "install.packages('BiocManager', repos='https://cloud.r-project.org'); \
              BiocManager::install(c('Biostrings','rtracklayer','BSgenome.Hsapiens.UCSC.hg19')); \
              devtools::install_github('morphos30/DeepG4')"
+
+# Ensure reticulate uses micromamba and recognize python
+RUN echo 'RETICULATE_PYTHON=/opt/conda/envs/deepg4/bin/python' >> /etc/R/Renviron.site && \
+    echo 'RETICULATE_CONDA=/usr/local/bin/micromamba' >> /etc/R/Renviron.site
 
 CMD ["bash"]
 
