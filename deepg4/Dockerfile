@@ -6,7 +6,7 @@ USER root
 RUN mamba install -y -c conda-forge \
     jupyter-server-proxy \
     tqdm \
-    tensorflow==2.1.0 \
+    tensorflow \
     h5py \
     protobuf \
     tensorboard \
