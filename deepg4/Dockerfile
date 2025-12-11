@@ -27,8 +27,8 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Install micromamba
-ADD https://micro.mamba.pm/api/micromamba/linux-64/latest /usr/local/bin/micromamba
-RUN chmod +x /usr/local/bin/micromamba
+RUN curl -L https://micro.mamba.pm/api/micromamba/linux-64/latest | \
+    tar -xvj -C /usr/local/bin --strip-components=1 bin/micromamba
 
 # Create conda env for DeepG4
 RUN micromamba create -y -p /opt/conda/envs/deepg4 \
