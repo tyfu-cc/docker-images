@@ -7,8 +7,8 @@ RUN mamba install -y -c conda-forge \
     jupyter-server-proxy \
     tqdm \
     tensorflow==2.1.0 \
-    h5py==2.10.0 \
-    protobuf==3.20.* \
+    h5py \
+    protobuf \
     tensorboard \
     pip && \
     mamba clean --all -f -y && \
