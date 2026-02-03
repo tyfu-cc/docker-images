@@ -6,6 +6,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends build-essential \
     libxml2-dev \
     libssl-dev \
+    libgsl-dev \
     libpng-dev \
     libssh2-1 \
     libcairo2-dev \
