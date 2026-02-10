@@ -2,7 +2,9 @@ FROM nextflow/nextflow:25.10.3
 
 USER root
 
-RUN dnf -y install libnsl && \
+RUN dnf -y install \
+      libnsl \
+      libxcrypt-compat && \
     dnf clean all && \
     rm -rf /var/cache/dnf
 
