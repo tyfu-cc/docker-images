@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /opt/bin
 
 # Install PLINK 1.9
-RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20231211.zip \
-    && unzip plink_linux_x86_64_20231211.zip -d /usr/local/bin/ \
-    && rm plink_linux_x86_64_20231211.zip
+RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20250819.zip \
+    && unzip plink_linux_x86_64_20250819.zip -d /usr/local/bin/ \
+    && rm plink_linux_x86_64_20250819
 
 # Install PLINK 2.0
 RUN wget https://s3.amazonaws.com/plink2-assets/alpha6/plink2_linux_x86_64_20241021.zip \
