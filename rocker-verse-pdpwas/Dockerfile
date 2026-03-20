@@ -5,7 +5,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential \
+    apt-get install -y --no-install-recommends build-essential && \
     libxml2-dev \
     libssl-dev \
     libgsl-dev \
@@ -20,9 +20,9 @@ RUN apt-get update \
     libhdf5-dev \
     unzip \
     wget \
-    gwama \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    gwama && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20250819.zip -O /tmp/plink1.9.zip && \
     unzip /tmp/plink1.9.zip -d /tmp/plink1.9 && \
