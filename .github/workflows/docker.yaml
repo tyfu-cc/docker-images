@@ -51,6 +51,7 @@ jobs:
       matrix: ${{ fromJSON(needs.detect-tools.outputs.matrix) }}
       fail-fast: false
 
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -68,13 +69,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image (amd64 only)
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{ matrix.path }}
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:${{ env.VERSION }}
-            ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:latest
+      - name: Build and push Docker image
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:${{ env.VERSION }} \
+            -t ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:latest \
+            ${{ matrix.path }}
+          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:${{ env.VERSION }}
+          docker push ghcr.io/${{ github.repository_owner }}/${{ matrix.tool }}:latest
 
