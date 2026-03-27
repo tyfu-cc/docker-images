@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PLINK 2.0
-RUN wget https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20260110.zip \
-    && unzip plink2_linux_x86_64_20260110.zip -d /usr/bin/ \
-    && rm plink2_linux_x86_64_20260110.zip
+RUN wget https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20260311.zip \
+    && unzip plink2_linux_x86_64_20260311.zip -d /usr/bin/ \
+    && rm plink2_linux_x86_64_20260311.zip
 
 # Install data.table, susieR, and coloc
 RUN Rscript -e "\
