@@ -17,8 +17,11 @@ RUN apt-get update && \
 
 # Install BiocManager, MungeSumstats, and genome annotation packages
 RUN Rscript -e "\
+    install.packages(\"data.table\", repos = \"https://cloud.r-project.org\"); \
     install.packages(\"BiocManager\", repos = \"https://cloud.r-project.org\"); \
     BiocManager::install(version = \"3.22\", ask = FALSE, update = FALSE); \
+    BiocManager::install(\"rtracklayer\", ask = FALSE, update = FALSE); \
+    BiocManager::install(\"GenomicRanges\", ask = FALSE, update = FALSE) \
     BiocManager::install(\"MungeSumstats\", ask = FALSE, update = FALSE); \
     BiocManager::install(\"SNPlocs.Hsapiens.dbSNP155.GRCh38\", ask = FALSE, update = FALSE); \
     BiocManager::install(\"BSgenome.Hsapiens.NCBI.GRCh38\", ask = FALSE, update = FALSE) \
