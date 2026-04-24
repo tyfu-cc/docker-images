@@ -1,4 +1,4 @@
-FROM r-base:4.5.3
+FROM rocker/r-ver:4.5.3
 
 # Install system dependencies
 RUN apt-get update && \
