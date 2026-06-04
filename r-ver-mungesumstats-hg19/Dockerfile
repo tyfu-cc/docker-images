@@ -17,6 +17,7 @@ RUN apt-get update && \
 
 # Install BiocManager, MungeSumstats, and genome annotation packages
 RUN Rscript -e "\
+    options(timeout = 3600); \
     install.packages(\"data.table\", repos = \"https://cloud.r-project.org\"); \
     install.packages(\"BiocManager\", repos = \"https://cloud.r-project.org\"); \
     BiocManager::install(version = \"3.22\", ask = FALSE, update = FALSE); \
