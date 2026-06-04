@@ -23,7 +23,9 @@ RUN Rscript -e "\
     BiocManager::install(\"rtracklayer\", ask = FALSE, update = FALSE); \
     BiocManager::install(\"GenomicRanges\", ask = FALSE, update = FALSE); \
     BiocManager::install(\"MungeSumstats\", ask = FALSE, update = FALSE); \
+    BiocManager::install(\"SNPlocs.Hsapiens.dbSNP155.GRCh37\", ask = FALSE, update = FALSE); \
     BiocManager::install(\"SNPlocs.Hsapiens.dbSNP155.GRCh38\", ask = FALSE, update = FALSE); \
+    BiocManager::install(\"BSgenome.Hsapiens.1000genomes.hs37d5\", ask = FALSE, update = FALSE); \
     BiocManager::install(\"BSgenome.Hsapiens.NCBI.GRCh38\", ask = FALSE, update = FALSE) \
 "
 
