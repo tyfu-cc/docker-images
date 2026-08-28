@@ -13,6 +13,7 @@ RUN apt-get update && \
     libpng-dev \
     libtiff5-dev \
     libjpeg-dev \
+    libglpk-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install BiocManager, MungeSumstats, and genome annotation packages
