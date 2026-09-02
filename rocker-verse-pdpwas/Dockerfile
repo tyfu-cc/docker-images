@@ -21,7 +21,8 @@ RUN apt-get update && \
     libhdf5-dev \
     unzip \
     wget \
-    gwama && \
+    gwama \
+    tabix && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
