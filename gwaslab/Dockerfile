@@ -41,7 +41,7 @@ RUN wget -q "https://github.com/samtools/bcftools/releases/download/${BCFTOOLS_V
 
 # GWASLab
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir "gwaslab=4.2.2"
+    && pip install --no-cache-dir "gwaslab==4.2.2"
 
 CMD ["/bin/bash"]
 
