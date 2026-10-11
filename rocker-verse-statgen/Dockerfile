@@ -1,4 +1,4 @@
-FROM rocker/verse:4.4.0
+FROM rocker/verse:4.4.3
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
@@ -26,12 +26,12 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20250819.zip -O /tmp/plink1.9.zip && \
+RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20260927.zip -O /tmp/plink1.9.zip && \
     unzip /tmp/plink1.9.zip -d /tmp/plink1.9 && \
     mv /tmp/plink1.9/plink /usr/bin/plink && \
     chmod +x /usr/bin/plink && \
     rm -rf /tmp/plink1.9 /tmp/plink1.9.zip && \
-    wget https://s3.amazonaws.com/plink2-assets/alpha6/plink2_linux_x86_64_20241222.zip -O /tmp/plink2.zip && \
+    wget https://s3.amazonaws.com/plink2-assets/alpha6/plink2_linux_x86_64_20261007.zip -O /tmp/plink2.zip && \
     unzip /tmp/plink2.zip -d /tmp/plink2 && \
     mv /tmp/plink2/plink2 /usr/bin/plink2 && \
     chmod +x /usr/bin/plink2 && \
