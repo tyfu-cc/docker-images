@@ -14,8 +14,8 @@ RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20260927.zip 
     && rm plink_linux_x86_64_20260927.zip
 
 # Install PLINK 2.0
-RUN wget https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20261007.zip \
-    && unzip plink2_linux_x86_64_20261007.zip -d /usr/bin/ \
-    && rm plink2_linux_x86_64_20261007.zip
+RUN wget https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20261015.zip \
+    && unzip plink2_linux_x86_64_20261015.zip -d /usr/bin/ \
+    && rm plink2_linux_x86_64_20261015.zip
 
 CMD ["/bin/bash"]
