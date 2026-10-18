@@ -31,7 +31,7 @@ RUN wget https://s3.amazonaws.com/plink1-assets/plink_linux_x86_64_20260927.zip 
     mv /tmp/plink1.9/plink /usr/bin/plink && \
     chmod +x /usr/bin/plink && \
     rm -rf /tmp/plink1.9 /tmp/plink1.9.zip && \
-    wget https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20261007.zip -O /tmp/plink2.zip && \
+    wget https://s3.amazonaws.com/plink2-assets/plink2_linux_x86_64_20261015.zip -O /tmp/plink2.zip && \
     unzip /tmp/plink2.zip -d /tmp/plink2 && \
     mv /tmp/plink2/plink2 /usr/bin/plink2 && \
     chmod +x /usr/bin/plink2 && \
