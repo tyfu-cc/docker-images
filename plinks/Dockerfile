@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     libgomp1 \
+    gawk \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PLINK 1.9
